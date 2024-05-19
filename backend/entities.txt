@@ -1,0 +1,25 @@
+Users: Entity that represents an user in the platform
+Attributes:
+- ID: User ID
+- Email: User Email
+- Password: User Password
+- Type: User Type. Allowed values: admin, normal
+- CreationDate: User creation date
+- LastUpdated: User last updated date
+
+Courses: Entity that represents a course in the platform
+Attributes:
+- ID: Course ID
+- Title: Course title
+- Description: Course description
+- Category: Course Category. Allowed values: to be defined
+- CreationDate: Course creation date
+- LastUpdated: Course last updated date
+
+Subscriptions: Entity that represents an user-course subscription
+Attributes:
+- ID: Subscription ID
+- User ID: Subscription User ID
+- Couse ID: Subscription Course ID
+- CreationDate: Subscription creation date
+- LastUpdated: Subscription last updated date
