@@ -65,7 +65,7 @@ func Subscribe(c *gin.Context) {
 	}
 
 	if err := services.Subscribe(request.UserID, request.CourseID); err != nil {
-		c.JSON(http.StatusInternalServerError, domain.Result{
+		c.JSON(http.StatusConflict, domain.Result{
 			Message: fmt.Sprintf("Error in subscribe; %s", err.Error()),
 		})
 		return
