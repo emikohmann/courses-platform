@@ -14,7 +14,7 @@ import (
 func Search(c *gin.Context) {
 	var request domain.SearchRequest
 
-	if err := c.BindJSON(&request); err != nil {
+	if err := c.ShouldBindJSON(&request); err != nil {
 		c.JSON(http.StatusBadRequest, domain.Result{
 			Message: fmt.Sprintf("Invalid request: %s", err.Error()),
 		})
@@ -45,7 +45,7 @@ func Get(c *gin.Context) {
 
 	course, err := services.Get(id)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, domain.Result{
+		c.JSON(http.StatusNotFound, domain.Result{
 			Message: fmt.Sprintf("Error in get: %s", err.Error()),
 		})
 		return
@@ -57,7 +57,7 @@ func Get(c *gin.Context) {
 func Subscribe(c *gin.Context) {
 	var request domain.SubscribeRequest
 
-	if err := c.BindJSON(&request); err != nil {
+	if err := c.ShouldBindJSON(&request); err != nil {
 		c.JSON(http.StatusBadRequest, domain.Result{
 			Message: fmt.Sprintf("Invalid request: %s", err.Error()),
 		})
@@ -72,6 +72,6 @@ func Subscribe(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, domain.Result{
-		Message: fmt.Sprintf("User %d successfully subscribed to course %d", request.UserID, request.CourseID)
+		Message: fmt.Sprintf("User %d successfully subscribed to course %d", request.UserID, request.CourseID),
 	})
 }

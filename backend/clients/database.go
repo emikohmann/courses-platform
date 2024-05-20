@@ -97,4 +97,6 @@ func InsertSubscription(userID int64, courseID int64) error {
 		CreationDate: time.Now().UTC(),
 		LastUpdated:  time.Now().UTC(),
 	})
+
+	return nil
 }

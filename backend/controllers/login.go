@@ -12,7 +12,7 @@ import (
 func Login(c *gin.Context) {
 	var request domain.LoginRequest
 
-	if err := c.BindJSON(&request); err != nil {
+	if err := c.ShouldBindJSON(&request); err != nil {
 		c.JSON(http.StatusBadRequest, domain.Result{
 			Message: fmt.Sprintf("Invalid request: %s", err.Error()),
 		})
