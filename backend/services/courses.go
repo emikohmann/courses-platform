@@ -34,6 +34,7 @@ func Get(id int64) (domain.Course, error) {
 	if err != nil {
 		return domain.Course{}, fmt.Errorf("error getting course from DB: %w", err)
 	}
+
 	return domain.Course{
 		ID:           course.ID,
 		Title:        course.Title,
@@ -45,8 +46,17 @@ func Get(id int64) (domain.Course, error) {
 }
 
 func Subscribe(userID int64, courseID int64) error {
+	if _, err := clients.SelectUserByID(userID); err != nil {
+		return fmt.Errorf("error getting user from DB: %w", err)
+	}
+
+	if _, err := clients.SelectCourseByID(courseID); err != nil {
+		return fmt.Errorf("error getting course from DB: %w", err)
+	}
+
 	if err := clients.InsertSubscription(userID, courseID); err != nil {
 		return fmt.Errorf("error creating subscription in DB: %w", err)
 	}
+
 	return nil
 }

@@ -52,6 +52,15 @@ func ConnectDatabase() error {
 	return nil
 }
 
+func SelectUserByID(id int64) (dao.User, error) {
+	for _, user := range db[tableNameUsers] {
+		if userDAO := user.(dao.User); userDAO.ID == id {
+			return userDAO, nil
+		}
+	}
+	return dao.User{}, fmt.Errorf("not found user with ID: %d", id)
+}
+
 func SelectUserByEmail(email string) (dao.User, error) {
 	for _, user := range db[tableNameUsers] {
 		if userDAO := user.(dao.User); userDAO.Email == email {
