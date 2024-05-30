@@ -7,7 +7,7 @@ function App() {
   const [search, setSearch] = useState(''); // State for confirmed search term
 
   useEffect(() => {
-    console.log(`Fetching data from http://localhost:8080/courses/search?q=${search}`)
+    console.log(`Fetching data from http://localhost:8080/courses/search?query=${search}`)
     // Fetch data from the API based on the search term
     fetch(`http://localhost:8080/courses/search?query=${search}`)
       .then(response => response.json())
