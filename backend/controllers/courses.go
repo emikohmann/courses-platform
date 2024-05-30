@@ -4,6 +4,7 @@ import (
 	"backend/domain"
 	"backend/services"
 	"net/http"
+	"strings"
 
 	"fmt"
 	"strconv"
@@ -12,16 +13,8 @@ import (
 )
 
 func Search(c *gin.Context) {
-	var request domain.SearchRequest
-
-	if err := c.ShouldBindJSON(&request); err != nil {
-		c.JSON(http.StatusBadRequest, domain.Result{
-			Message: fmt.Sprintf("Invalid request: %s", err.Error()),
-		})
-		return
-	}
-
-	results, err := services.Search(request.Query)
+	query := strings.TrimSpace(c.Query("query"))
+	results, err := services.Search(query)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, domain.Result{
 			Message: fmt.Sprintf("Error in search: %s", err.Error()),

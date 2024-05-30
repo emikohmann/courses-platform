@@ -22,6 +22,7 @@ func Search(query string) ([]domain.Course, error) {
 			Title:        course.Title,
 			Description:  course.Description,
 			Category:     course.Category,
+			ImageURL:     course.ImageURL,
 			CreationDate: course.CreationDate,
 			LastUpdated:  course.LastUpdated,
 		})
@@ -40,6 +41,7 @@ func Get(id int64) (domain.Course, error) {
 		Title:        course.Title,
 		Description:  course.Description,
 		Category:     course.Category,
+		ImageURL:     course.ImageURL,
 		CreationDate: course.CreationDate,
 		LastUpdated:  course.LastUpdated,
 	}, nil
