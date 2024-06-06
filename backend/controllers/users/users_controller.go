@@ -1,8 +1,9 @@
-package controllers
+package users
 
 import (
-	"backend/domain"
-	"backend/services"
+	"backend/domain/shared"
+	users2 "backend/domain/users"
+	"backend/services/users"
 	"fmt"
 	"net/http"
 
@@ -10,24 +11,24 @@ import (
 )
 
 func Login(c *gin.Context) {
-	var request domain.LoginRequest
+	var request users2.LoginRequest
 
 	if err := c.ShouldBindJSON(&request); err != nil {
-		c.JSON(http.StatusBadRequest, domain.Result{
+		c.JSON(http.StatusBadRequest, shared.Result{
 			Message: fmt.Sprintf("Invalid request: %s", err.Error()),
 		})
 		return
 	}
 
-	token, err := services.Login(request.Email, request.Password)
+	token, err := users.Login(request.Email, request.Password)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, domain.Result{
+		c.JSON(http.StatusUnauthorized, shared.Result{
 			Message: fmt.Sprintf("Unauthorized login: %s", err.Error()),
 		})
 		return
 	}
 
-	c.JSON(http.StatusOK, domain.LoginResponse{
+	c.JSON(http.StatusOK, users2.LoginResponse{
 		Token: token,
 	})
 }

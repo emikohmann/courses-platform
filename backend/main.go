@@ -1,13 +1,14 @@
 package main
 
 import (
-	"backend/clients"
-	"backend/controllers"
+	"backend/clients/database"
+	"backend/controllers/courses"
+	"backend/controllers/users"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	clients.ConnectDatabase()
+	database.ConnectDatabase()
 	router := gin.New()
 	// Middleware to handle CORS
 	router.Use(func(c *gin.Context) {
@@ -18,9 +19,9 @@ func main() {
 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 		c.Next()
 	})
-	router.POST("/login", controllers.Login)
-	router.GET("/courses/search", controllers.Search)
-	router.GET("/courses/:id", controllers.Get)
-	router.POST("/subscriptions", controllers.Subscribe)
+	router.POST("/login", users.Login)
+	router.GET("/courses/search", courses.Search)
+	router.GET("/courses/:id", courses.Get)
+	router.POST("/subscriptions", courses.Subscribe)
 	router.Run(":8080")
 }

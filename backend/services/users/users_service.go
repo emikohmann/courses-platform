@@ -1,7 +1,7 @@
-package services
+package users
 
 import (
-	"backend/clients"
+	"backend/clients/database"
 	"crypto/md5"
 	"errors"
 	"fmt"
@@ -37,7 +37,7 @@ func Login(email string, password string) (string, error) {
 
 	hash := fmt.Sprintf("%x", md5.Sum([]byte(password)))
 
-	userDAO, err := clients.SelectUserByEmail(email)
+	userDAO, err := database.SelectUserByEmail(email)
 	if err != nil {
 		return "", fmt.Errorf("error getting user from DB: %w", err)
 	}

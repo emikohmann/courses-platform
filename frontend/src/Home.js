@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 
-function App() {
+function Home() {
   const [courses, setCourses] = useState([]);
   const [query, setQuery] = useState(''); // State for current input value
   const [search, setSearch] = useState(''); // State for confirmed search term
@@ -26,7 +26,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <>
       <div className="SearchBar">
         <form onSubmit={handleSearchSubmit}>
           <input
@@ -43,7 +43,7 @@ function App() {
             <div key={course.id} className="Course">
               <img src={course.image_url} alt={course.title} className="Course-image" />
               <div className="Course-details">
-                <h1 className="Course-title">{course.title}</h1>
+                <h1 className="Course-title"><a href={"/courses/" + course.id}>{course.title}</a></h1>
                 <p className="Course-description">{course.description}</p>
                 <p className="Course-category"><strong>{course.category}</strong></p>
               </div>
@@ -53,8 +53,8 @@ function App() {
           <p>Loading courses...</p>
         )}
       </div>
-    </div>
+    </>
   );
 }
 
-export default App;
+export default Home;
