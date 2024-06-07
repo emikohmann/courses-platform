@@ -7,6 +7,23 @@ import (
 	"strings"
 )
 
+func Get(id int64) (courses.Course, error) {
+	record, err := database.SelectCourseByID(id)
+	if err != nil {
+		return courses.Course{}, fmt.Errorf("error getting record from DB: %w", err)
+	}
+
+	return courses.Course{
+		ID:           record.ID,
+		Title:        record.Title,
+		Description:  record.Description,
+		Category:     record.Category,
+		ImageURL:     record.ImageURL,
+		CreationDate: record.CreationDate,
+		LastUpdated:  record.LastUpdated,
+	}, nil
+}
+
 func Search(query string) ([]courses.Course, error) {
 	trimmed := strings.TrimSpace(query)
 
@@ -28,37 +45,4 @@ func Search(query string) ([]courses.Course, error) {
 		})
 	}
 	return results, nil
-}
-
-func Get(id int64) (courses.Course, error) {
-	record, err := database.SelectCourseByID(id)
-	if err != nil {
-		return courses.Course{}, fmt.Errorf("error getting record from DB: %w", err)
-	}
-
-	return courses.Course{
-		ID:           record.ID,
-		Title:        record.Title,
-		Description:  record.Description,
-		Category:     record.Category,
-		ImageURL:     record.ImageURL,
-		CreationDate: record.CreationDate,
-		LastUpdated:  record.LastUpdated,
-	}, nil
-}
-
-func Subscribe(userID int64, courseID int64) error {
-	if _, err := database.SelectUserByID(userID); err != nil {
-		return fmt.Errorf("error getting user from DB: %w", err)
-	}
-
-	if _, err := database.SelectCourseByID(courseID); err != nil {
-		return fmt.Errorf("error getting course from DB: %w", err)
-	}
-
-	if err := database.InsertSubscription(userID, courseID); err != nil {
-		return fmt.Errorf("error creating subscription in DB: %w", err)
-	}
-
-	return nil
 }

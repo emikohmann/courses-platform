@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Home from './Home';
+import Signup from './Signup';
 import Course from './Course';
 import reportWebVitals from './reportWebVitals';
 import {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
   },
   {
     path: "/courses/:id",
