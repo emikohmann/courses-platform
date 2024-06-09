@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Home from './Home';
+import Courses from './Courses';
 import Signup from './Signup';
 import Course from './Course';
 import reportWebVitals from './reportWebVitals';
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
+    path: "/courses",
+    element: <Courses />,
+  },
+  {
     path: "/signup",
     element: <Signup />,
   },
@@ -27,11 +32,9 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
-  </React.StrictMode>
+  <div className="App">
+    <RouterProvider router={router} />
+  </div>
 );
 
 // If you want to start measuring performance in your app, pass a function

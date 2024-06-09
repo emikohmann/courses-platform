@@ -8,6 +8,7 @@ import (
 	"backend/controllers/users"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"time"
 )
 
 func main() {
@@ -18,6 +19,10 @@ func main() {
 
 	router := gin.New()
 	router.Use(cors.AllowCORS)
+	router.Use(func(c *gin.Context) {
+		time.Sleep(200 * time.Millisecond)
+		c.Next()
+	})
 	router.GET("/users/:id", users.Get)
 	router.POST("/users/login", users.Login)
 	router.POST("/users/signup", users.Signup)
